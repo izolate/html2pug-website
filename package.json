@@ -4,7 +4,7 @@
   "description": "Convert HTML to Pug",
   "main": "server/index.js",
   "scripts": {
-    "start": "nodemon --use-strict --harmony_destructuring -i node_modules app/server.js",
+    "start": "nodemon --use-strict --harmony_destructuring -i node_modules -i app/client app/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "js:dev": "browserify --debug -t babelify app/client/js/index.js > app/client/dist/index.js",
     "js:prd": "browserify -t babelify app/client/js/index.js > app/client/dist/index.js",

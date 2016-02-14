@@ -1,6 +1,39 @@
+:root {
+  --fontSize: 1rem;
+  --fontFamilySans: 'Hind';
+  --fontFamilyMono: 'Roboto Mono';
+
+  --backgroundColor: black;
+}
+
 * {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Alice';
+  font-family: var(--fontFamilySans);
+}
+
+body {
+  font-size: var(--fontSize);
+  background-color: var(--backgroundColor);
+}
+
+header {
+  height: 65px;
+}
+
+section {
+  height: calc(100vh - 130px);
+  display: flex;
+  justify-content: center;
+}
+
+textarea {
+  width: 50%;
+  height: inherit;
+  border: none;
+  background-color: #fbfbfb;
+
+  font-family: var(--fontFamilyMono);
+  font-size: inherit;
 }
