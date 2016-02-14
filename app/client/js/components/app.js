@@ -5,7 +5,7 @@ import TextArea from './textarea'
 class App extends Component {
   constructor () {
     super()
-    this.state = { id: uuid.v1(), pug: null }
+    this.state = { id: uuid.v1(), pug: '' }
   }
 
   componentWillMount () {
@@ -16,11 +16,10 @@ class App extends Component {
     this.socket.on('compilation:response', pug => this.setState({ pug }))
   }
 
-  requestCompilation (html) {
-    this.socket.emit('compilation:request', {
-      html,
-      room: this.state.id,
-    })
+  requestCompilation (html, room=this.state.id) {
+    // Only ping server if textarea has content
+    if (!html.length) this.setState({ pug: '' })
+    else this.socket.emit('compilation:request', { html, room })
   }
 
   render () {
