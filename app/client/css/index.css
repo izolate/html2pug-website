@@ -1,39 +1,62 @@
 :root {
   --fontSize: 1rem;
-  --fontFamilySans: 'Hind';
-  --fontFamilyMono: 'Roboto Mono';
-
-  --backgroundColor: black;
+  --fontFamilyMono: 'Menlo', 'Inconsolata';
+  --backgroundColor: blue;
+  --colorBlue: #1800ff;
+  --colorLightBlue: #f3f3f7;
+  --colorBorder: #D8D8E6;
 }
 
 * {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--fontFamilySans);
 }
 
 body {
   font-size: var(--fontSize);
-  background-color: var(--backgroundColor);
+  overflow: hidden;
 }
 
 header {
   height: 65px;
+  padding: 0 2em;
+  background-color: var(--colorBlue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.repo,
+.repo img {
+  display: block;
+  width: 40px;
+  height: 40px;
 }
 
 section {
-  height: calc(100vh - 130px);
+  height: calc(100vh - 65px);
   display: flex;
   justify-content: center;
 }
 
-textarea {
+.editor-container {
   width: 50%;
   height: inherit;
   border: none;
-  background-color: #fbfbfb;
+  padding: 1em;
+  background-color: white;
+}
+.editor-container:last-child {
+  border-left: 1px solid var(--colorBorder);
+  background-color: var(--colorLightBlue);
+}
 
+/* CodeMirror */
+.CodeMirror {
+  background-color: transparent;
+}
+
+.CodeMirror pre {
   font-family: var(--fontFamilyMono);
-  font-size: inherit;
 }

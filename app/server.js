@@ -18,8 +18,9 @@ io.sockets.on('connection', socket => {
 
   socket.on('compilation:request', req => {
     const { room, html } = req
+    const bodyless = html.indexOf('<body') > -1 ? false : true
 
-    html2pug.convertHtml(html, { bodyless: true }, (err, pug) => {
+    html2pug.convertHtml(html, { bodyless }, (err, pug) => {
       if (err) throw new Error(err)
       else io.sockets.in(room).emit('compilation:response', pug)
     })
