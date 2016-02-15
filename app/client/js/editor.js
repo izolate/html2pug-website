@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import CodeMirror from 'codemirror'
+
 import 'codemirror/mode/htmlmixed/htmlmixed'
+import 'codemirror/mode/jade/jade'
 
 class Editor extends Component {
   constructor () {
@@ -10,7 +12,7 @@ class Editor extends Component {
 
   get options () {
     return {
-      mode: 'xml',
+      mode: this.props.mode,
       readOnly: !!this.props.readOnly,
       extraKeys: {
         Tab (cm) {

@@ -46,22 +46,22 @@ class App extends Component {
     return (
       <main>
         <header>
-          <img className='logo'
+          <img
+            className='logo'
             src='/static/img/html2pug-logo.svg'
             alt='HTML2Pug logo' />
-          <a className='repo'
-            href='https://github.com/izolate/html2pug'>
-            <img
-              src='/static/img/github-logo.svg'
-              alt='GitHub logo' />
+          <a className='repo' href='https://github.com/izolate/html2pug'>
+            <img src='/static/img/github-logo.svg' alt='GitHub logo' />
           </a>
         </header>
         <section>
           <Editor
+            mode='xml'
             readOnly={false}
             sendRequest={this.requestCompilation.bind(this)}
             initialValue={this.dummyHTML} />
           <Editor
+            mode='jade'
             value={this.state.pug}
             readOnly={true} />
         </section>
