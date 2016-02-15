@@ -30,8 +30,8 @@ class App extends Component {
 
     this.socket = window.io.connect()
     this.socket.on('connect', () => console.info('Connected to socket'))
-    this.socket.emit('join', this.state.id)
     this.socket.on('compilation:response', pug => this.setState({ pug }))
+    this.socket.emit('join', this.state.id)
   }
 
   requestCompilation (html, room=this.state.id) {

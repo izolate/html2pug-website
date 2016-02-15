@@ -1,6 +1,6 @@
 :root {
   --fontSize: 1rem;
-  --fontFamilyMono: 'Menlo', 'Inconsolata';
+  --fontFamilyMono: 'Menlo', 'Inconsolata', monospace;
   --backgroundColor: blue;
   --colorBlue: #1800ff;
   --colorLightBlue: #f3f3f7;
