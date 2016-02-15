@@ -11,7 +11,8 @@
     "develop": "npm run js:dev; npm run css:dev",
     "build": "npm run js:dev; npm run css:prd",
     "css:dev": "postcss --use postcss-cssnext --use autoprefixer --use postcss-font-magician -o app/client/dist/index.css app/client/css/index.css",
-    "css:prd": "postcss --use postcss-cssnext --use autoprefixer --use postcss-font-magician --use cssnano -o app/client/dist/index.css app/client/css/index.css"
+    "css:prd": "postcss --use postcss-cssnext --use autoprefixer --use postcss-font-magician --use cssnano -o app/client/dist/index.css app/client/css/index.css",
+    "deploy": "cd deploy && ./deploy"
   },
   "author": "izolate <yoshtalwar@gmail.com> (http://izolate.net/)",
   "license": "MIT",
