@@ -1,21 +1,17 @@
 :root {
   --fontSize: 1rem;
-  --fontFamilySans: 'Hind';
-  --fontFamilyMono: 'Roboto Mono';
-
-  --backgroundColor: black;
+  --fontFamilyMono: 'Inconsolata';
+  --backgroundColor: blue;
 }
 
 * {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--fontFamilySans);
 }
 
 body {
   font-size: var(--fontSize);
-  background-color: var(--backgroundColor);
 }
 
 header {
@@ -32,8 +28,9 @@ textarea {
   width: 50%;
   height: inherit;
   border: none;
-  background-color: #fbfbfb;
+}
 
+/* CodeMirror */
+.CodeMirror pre {
   font-family: var(--fontFamilyMono);
-  font-size: inherit;
 }

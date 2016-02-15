@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import uuid from 'uuid'
 import TextArea from './textarea'
+import CodeMirror from 'react-code-mirror'
+
+const codeMirrorStyle = {
+  width: '50%'
+}
 
 class App extends Component {
   constructor () {
@@ -10,6 +15,7 @@ class App extends Component {
 
   componentWillMount () {
     if (!window.io) return
+
     this.socket = window.io.connect()
     this.socket.on('connect', () => console.info('Connected to socket'))
     this.socket.emit('join', this.state.id)
@@ -28,6 +34,20 @@ class App extends Component {
         <header>
           <h1>HTML2Pug</h1>
         </header>
+        <section>
+          <CodeMirror
+            mode='javascript'
+            theme='github'
+            style={codeMirrorStyle}
+            lineNumbers={true} />
+          <CodeMirror
+            mode='xml'
+            theme='github'
+            htmlMode={true}
+            style={codeMirrorStyle}
+            readOnly={true}
+            lineNumbers={true} />
+        </section>
         <section>
           <TextArea
             disabled={false}
