@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import uuid from 'uuid'
-import TextArea from './textarea'
-import CodeMirror from 'react-code-mirror'
-
-const codeMirrorStyle = {
-  width: '50%'
-}
+import Editor from './editor'
 
 class App extends Component {
   constructor () {
@@ -23,7 +18,7 @@ class App extends Component {
   }
 
   requestCompilation (html, room=this.state.id) {
-    // Only ping server if textarea has content
+    // Only ping server if editor has content
     if (!html.length) this.setState({ pug: '' })
     else this.socket.emit('compilation:request', { html, room })
   }
@@ -35,27 +30,11 @@ class App extends Component {
           <h1>HTML2Pug</h1>
         </header>
         <section>
-          <CodeMirror
-            mode='javascript'
-            theme='github'
-            style={codeMirrorStyle}
-            lineNumbers={true} />
-          <CodeMirror
-            mode='xml'
-            theme='github'
-            htmlMode={true}
-            style={codeMirrorStyle}
-            readOnly={true}
-            lineNumbers={true} />
-        </section>
-        <section>
-          <TextArea
-            disabled={false}
-            submit={this.requestCompilation.bind(this)} />
-          <TextArea
-            value={this.state.pug}
-            disabled={true}
-            submit={null} />
+          <Editor
+            readOnly={false}
+            initialValue='<h1>Hello World!</h1>' />
+          <Editor
+            readOnly={true} />
         </section>
         <footer>
           Scratch

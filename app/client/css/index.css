@@ -1,6 +1,6 @@
 :root {
   --fontSize: 1rem;
-  --fontFamilyMono: 'Inconsolata';
+  --fontFamilyMono: 'Menlo', 'Inconsolata';
   --backgroundColor: blue;
 }
 
@@ -24,7 +24,7 @@ section {
   justify-content: center;
 }
 
-textarea {
+.editor-container {
   width: 50%;
   height: inherit;
   border: none;

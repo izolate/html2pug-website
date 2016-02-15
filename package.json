@@ -35,7 +35,6 @@
     "pug": "^0.1.0",
     "pug-cli": "0.0.0",
     "react": "^0.14.7",
-    "react-code-mirror": "^3.0.6",
     "react-dom": "^0.14.7",
     "socket.io": "^1.4.5",
     "uuid": "^2.0.1"
