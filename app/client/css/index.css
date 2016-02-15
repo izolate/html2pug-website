@@ -2,7 +2,9 @@
   --fontSize: 1rem;
   --fontFamilyMono: 'Menlo', 'Inconsolata';
   --backgroundColor: blue;
-  --colorBlue: #1800ff
+  --colorBlue: #1800ff;
+  --colorLightBlue: #f3f3f7;
+  --colorBorder: #D8D8E6;
 }
 
 * {
@@ -18,8 +20,18 @@ body {
 
 header {
   height: 65px;
+  padding: 0 2em;
   background-color: var(--colorBlue);
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.repo,
+.repo img {
+  display: block;
+  width: 40px;
+  height: 40px;
 }
 
 section {
@@ -33,9 +45,18 @@ section {
   height: inherit;
   border: none;
   padding: 1em;
+  background-color: white;
+}
+.editor-container:last-child {
+  border-left: 1px solid var(--colorBorder);
+  background-color: var(--colorLightBlue);
 }
 
 /* CodeMirror */
+.CodeMirror {
+  background-color: transparent;
+}
+
 .CodeMirror pre {
   font-family: var(--fontFamilyMono);
 }
