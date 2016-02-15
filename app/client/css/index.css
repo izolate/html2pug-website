@@ -10,6 +10,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -43,8 +44,8 @@ section {
 .editor-container {
   width: 50%;
   height: inherit;
-  border: none;
   padding: 1em;
+  border: none;
   background-color: white;
 }
 .editor-container:last-child {
@@ -54,6 +55,8 @@ section {
 
 /* CodeMirror */
 .CodeMirror {
+  width: 100%;
+  height: 100%;
   background-color: transparent;
 }
 
