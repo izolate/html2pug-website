@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import uuid from 'uuid'
 import Editor from './editor'
+import cleanHTML from 'htmlclean'
 
 class App extends Component {
   constructor () {
@@ -20,7 +21,9 @@ class App extends Component {
   requestCompilation (html, room=this.state.id) {
     // Only ping server if editor has content
     if (!html.length) this.setState({ pug: '' })
-    else this.socket.emit('compilation:request', { html, room })
+    else this.socket.emit('compilation:request', {
+      html: cleanHTML(html), room
+    })
   }
 
   render () {
@@ -32,13 +35,12 @@ class App extends Component {
         <section>
           <Editor
             readOnly={false}
+            sendRequest={this.requestCompilation.bind(this)}
             initialValue='<h1>Hello World!</h1>' />
           <Editor
+            value={this.state.pug}
             readOnly={true} />
         </section>
-        <footer>
-          Scratch
-        </footer>
       </main>
     )
   }

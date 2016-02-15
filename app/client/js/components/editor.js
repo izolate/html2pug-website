@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import CodeMirror from 'codemirror'
+import 'codemirror/mode/htmlmixed/htmlmixed'
 
 class Editor extends Component {
   constructor () {
@@ -10,7 +11,6 @@ class Editor extends Component {
   get options () {
     return {
       mode: 'xml',
-      theme: 'github',
       readOnly: !!this.props.readOnly,
       extraKeys: {
         Tab (cm) {
@@ -31,11 +31,12 @@ class Editor extends Component {
   }
 
   componentDidUpdate () {
-    console.log('updated')
+    if ('value' in this.props) this.editor.setValue(this.props.value)
   }
 
   handleChange (e) {
-    console.log(this.editor.getValue())
+    if (!this.props.sendRequest) return
+    else this.props.sendRequest(this.editor.getValue())
   }
 
   render () {

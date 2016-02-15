@@ -2,6 +2,7 @@
   --fontSize: 1rem;
   --fontFamilyMono: 'Menlo', 'Inconsolata';
   --backgroundColor: blue;
+  --colorBlue: #1800ff
 }
 
 * {
@@ -12,14 +13,17 @@
 
 body {
   font-size: var(--fontSize);
+  overflow: hidden;
 }
 
 header {
   height: 65px;
+  background-color: var(--colorBlue);
+  color: white;
 }
 
 section {
-  height: calc(100vh - 130px);
+  height: calc(100vh - 65px);
   display: flex;
   justify-content: center;
 }
@@ -28,6 +32,7 @@ section {
   width: 50%;
   height: inherit;
   border: none;
+  padding: 1em;
 }
 
 /* CodeMirror */
