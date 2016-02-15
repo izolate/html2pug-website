@@ -9,5 +9,12 @@ html(lang='en')
     link(rel='stylesheet', href='/static/dist/index.css')
   body
     #app
+    script.
+      !function(h,t,m,l,p,u,g){h.GoogleAnalyticsObject=m;h[m]||(h[m]=function(){
+        (h[m].q=h[m].q||[]).push(arguments)});h[m].l=+new Date;u=t.createElement(l);
+        g=t.getElementsByTagName(l)[0];u.src=p;g.parentNode.insertBefore(u,g)}
+        (window,document,'ga','script','//www.google-analytics.com/analytics.js');
+        ga('create', 'UA-73798495-1', 'auto');
+        ga('send', 'pageview');
     script(src='/socket.io/socket.io.js')
     script(src='/static/dist/index.js')
