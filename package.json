@@ -1,5 +1,5 @@
 {
-  "name": "html2pug",
+  "name": "html2pug-website",
   "version": "1.0.0",
   "description": "Convert HTML to Pug",
   "main": "server/index.js",
