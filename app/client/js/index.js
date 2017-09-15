@@ -61,7 +61,7 @@ class App extends Component {
             sendRequest={this.requestCompilation.bind(this)}
             initialValue={this.dummyHTML} />
           <Editor
-            mode='jade'
+            mode='pug'
             value={this.state.pug}
             readOnly={true} />
         </section>

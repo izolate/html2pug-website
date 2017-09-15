@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import CodeMirror from 'codemirror'
 
 import 'codemirror/mode/htmlmixed/htmlmixed'
-import 'codemirror/mode/jade/jade'
+import 'codemirror/mode/pug/pug'
 
 class Editor extends Component {
   constructor () {
