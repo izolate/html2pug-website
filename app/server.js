@@ -7,7 +7,7 @@ const io = require('socket.io')(server)
 const html2pug = require('html2jade')
 
 // Configuration
-app.set('port', process.env.NODE_PORT || 3000)
+app.set('port', process.env.NODE_PORT || 5000)
 app.set('views', `${__dirname}/client/views`)
 app.set('view engine', 'pug')
 app.use('/static', express.static(`${__dirname}/client`))
