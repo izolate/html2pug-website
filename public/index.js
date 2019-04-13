@@ -1,5 +1,6 @@
 const KEY_TAB = 'Tab'
 const MIME_TYPE_HTML = 'text/html'
+const API_URL = '/.nelify/functions/html2pug'
 
 const state = {
   input: null,
@@ -16,7 +17,7 @@ const convertToPug = async html => {
 
   // TODO
   // Send HTML to server for conversion
-  // return fetch()
+  return fetch(API_URL).toJSON()
 }
 
 const updateOutput = value => {
