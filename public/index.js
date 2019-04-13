@@ -9,7 +9,9 @@ const state = {
   input: null,
   output: null,
   settings: {
-    tabs: false,
+    useTabs: false,
+    useCommas: true,
+    isFragment: false,
   },
 }
 
@@ -19,7 +21,10 @@ const convertToPug = async (html = '') => {
   }
 
   // Send HTML to server for conversion
-  const res = await fetch(API_URL, { method: HTTP_METHOD_POST, body: html })
+  const res = await fetch(API_URL, {
+    method: HTTP_METHOD_POST,
+    body: JSON.stringify({ html, settings: state.settings }),
+  })
   const text = await res.text()
   return text
 }
@@ -33,7 +38,7 @@ const updateOutput = value => {
 
 const indentForward = el => {
   const s = el.selectionStart
-  const tab = state.settings.tab ? '\t' : ' '.repeat(2)
+  const tab = state.settings.useTabs ? '\t' : ' '.repeat(2)
 
   const start = el.value.substring(0, s)
   const end = el.value.substring(el.selectionEnd)
