@@ -12,10 +12,10 @@ html(lang='en')
   body.black-theme
     main#page
       header
-        img#logo(src='/public/html2pug-logo.svg', alt='html2pug logo')
+        img#logo(src='/assets/html2pug-logo.svg', alt='html2pug logo')
         nav
           button#menu-btn(type='button')
-            img(src='/public/menu-icon.svg', alt='menu icon')
+            img(src='/assets/menu-icon.svg', alt='menu icon')
 
       section#io
         textarea#input(placeholder=`<!doctype html>
@@ -31,8 +31,29 @@ html(lang='en')
         textarea#output.readonly(readonly)
 
       section#about
-        Convert HTML to Pug (formerly Jade) online for free
-      
+        .info-box
+          h2 About
+          p.
+            Pug is a templating language, like HTML and JSX, but more terse. It was called Jade prior to 2016. #[a(href='https://pugjs.org') Learn more about Pug.]
+          p This website is a frontend to the #[a(href='https://www.npmjs.com/package/html2pug') html2pug] Node.js package, made for quick conversions through the browser.
+
+        .info-box
+          h2 Open source
+          p.
+            The source code for this website, along with the code for the html2pug library, are both open source and available on Github. PRs are welcome.
+          ul
+            li
+              img.github(src='/assets/github-logo.svg', alt='Github logo')
+              a(href='#') Website source
+            li
+              img.github(src='/assets/github-logo.svg', alt='Github logo')
+              a(href='#') html2pug source
+
+        .info-box
+          h2 Author
+          p This website was developed by #[a(href='https://izolate.net') izolate], who also wrote the html2pug npm package it is based on.
+          p If you have any comments, please tweet #[a(href='https://twitter.com/izolate') @izolate], or open up #[a(href='https://github.com/izolate/html2pug-website/issues') an issue] on Github to submit a bug report. Thank you for your contributions.
+    
     script.
       !function(h,t,m,l,p,u,g){h.GoogleAnalyticsObject=m;h[m]||(h[m]=function(){
         (h[m].q=h[m].q||[]).push(arguments)});h[m].l=+new Date;u=t.createElement(l);
