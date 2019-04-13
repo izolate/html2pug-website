@@ -1,4 +1,4 @@
-import { debounce } from './utils'
+import { debounce } from './utils.js'
 
 const KEY_TAB = 'Tab'
 const API_URL = '/.netlify/functions/html2pug'
