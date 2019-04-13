@@ -41,6 +41,6 @@ textarea {
   background-color: white;
 }
 
-textarea.disabled {
+textarea.readonly {
   background-color: var(--color-light-grey);
 }
