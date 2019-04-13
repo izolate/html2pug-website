@@ -5,6 +5,11 @@ const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 500
 const LOADING_TEXT = 'Loading...'
+const IS_FRAGMENT_SETTING = 'isFragment'
+const ERROR_TEXT = `Oh no! Something went wrong :(
+
+It could be a server fault, or it could be invalid HTML.
+Please check your input and try again.`
 
 const state = {
   el: {
@@ -12,6 +17,7 @@ const state = {
     input: null,
     output: null,
     menuBtn: null,
+    settingsForm: null,
   },
 
   settings: {
@@ -27,6 +33,11 @@ const convertToPug = async (html = '') => {
     method: HTTP_METHOD_POST,
     body: JSON.stringify({ html, settings: state.settings }),
   })
+
+  if (res.status !== 200) {
+    throw new Error(ERROR_TEXT)
+  }
+
   const text = await res.text()
   return text
 }
@@ -49,6 +60,34 @@ const indentForward = el => {
   el.selectionEnd = s + tab.length
 }
 
+// Save a single settings change to state.
+const updateSettingsField = (name, value) => {
+  const { settings } = state
+  if (Object.keys(settings).includes(name)) {
+    settings[name] = value
+    window.localStorage.setItem('settings', JSON.stringify(settings))
+  }
+}
+
+// Save all settings to state and ensure radio inputs match.
+const updateSettings = (settings = {}) => {
+  state.settings = { ...state.settings, ...settings }
+
+  const { settingsForm } = state.el
+  const boolToNumber = bool => (bool ? 1 : 0)
+
+  Object.entries(state.settings).forEach(([key, val]) => {
+    switch (key) {
+      case IS_FRAGMENT_SETTING:
+        return
+      default: {
+        settingsForm[key].value = boolToNumber(val)
+        return
+      }
+    }
+  })
+}
+
 const handleInputKeyDown = e => {
   const { key, shiftKey, target: input } = e
   if (key === KEY_TAB) {
@@ -63,19 +102,26 @@ const handleInputKeyDown = e => {
 
 const handleInputChange = e => {
   const { target: input } = e
+
   setOutputValue(LOADING_TEXT)
+
   return convertToPug(input.value)
     .then(pug => setOutputValue(pug))
     .catch(err => {
-      // TODO
+      setOutputValue(ERROR_TEXT)
+      // eslint-disable-next-line no-console
       console.error(err)
     })
 }
 
-const handleMenuBtnClick = e => {
-  const { currentTarget: btn } = e
+const handleSettingsChange = e => {
+  const { name, value } = e.target
+  // Convert "1"/"0" to true/false
+  return updateSettingsField(name, Boolean(parseInt(value, 10)))
+}
+
+const handleMenuBtnClick = () => {
   const { main } = state.el
-  console.log(btn)
 
   if (main.classList.contains('narrow')) {
     main.classList.remove('narrow')
@@ -89,6 +135,7 @@ function main() {
   state.el.input = document.getElementById('input')
   state.el.output = document.getElementById('output')
   state.el.menuBtn = document.getElementById('menu-btn')
+  state.el.settingsForm = document.getElementById('settings')
 
   const { input, menuBtn } = state.el
 
@@ -104,6 +151,15 @@ function main() {
   document.querySelectorAll('textarea').forEach(input => {
     input.value = ''
   })
+
+  // Get saved preferences from localStorage
+  const prefs = JSON.parse(window.localStorage.getItem('settings')) || {}
+  updateSettings({ ...state.settings, ...prefs })
+
+  // Listen for changes in settings
+  document
+    .getElementById('settings')
+    .addEventListener('input', handleSettingsChange)
 }
 
 window.addEventListener('load', main)

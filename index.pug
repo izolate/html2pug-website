@@ -53,15 +53,35 @@ html(lang='en')
           ul
             li
               img.github(src='/assets/github-logo.svg', alt='Github logo')
-              a(href='#') Website source
+              a(href='https://github.com/izolate/html2pug-website/') Website source
             li
               img.github(src='/assets/github-logo.svg', alt='Github logo')
-              a(href='#') html2pug source
+              a(href='https://github.com/izolate/html2pug/') html2pug source
 
         .info-box
           h2 Author
           p This website was developed by #[a(href='https://izolate.net') izolate], who also wrote the html2pug npm package it is based on.
           p If you have any comments, please tweet #[a(href='https://twitter.com/izolate') @izolate], or open up #[a(href='https://github.com/izolate/html2pug-website/issues') an issue] on Github to submit a bug report. Thank you for your contributions.
     
+    form#settings
+      h2 Settings
+      .setting
+        h3 Tabs or Spaces?
+        label
+          input(type='radio', name='useTabs', value='1')
+          | Tabs
+        label
+          input(type='radio', name='useTabs', value='0')
+          | Spaces
+
+      .setting
+        h3 Commas in attributes
+        label
+          input(type='radio', name='useCommas', value='1')
+          | Yes
+        label
+          input(type='radio', name='useCommas', value='0')
+          | No
+
     // Global site tag (gtag.js) - Google Analytics 
     script(type="module" src='index.js')

@@ -9,6 +9,7 @@
   --font-weight-mono: 500;
   --font-weight-link: 600;
   --font-weight-bold: 700;
+  --font-weight-normal: 400;
 
   /* Colors */
   --font-color: black;
@@ -45,6 +46,8 @@ a {
 }
 
 main {
+  position: relative;
+  z-index: 1;
   transition: transform 0.25s ease-out;
 }
 
@@ -58,6 +61,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--bg-color);
 }
 
 #logo {
@@ -131,6 +135,44 @@ textarea {
 .github {
   height: 17px;
   margin-right: 5px;
+}
+
+/* Settings */
+#settings {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  width: var(--menu-width);
+  padding: 0 3em
+}
+
+#settings h2 {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: calc(var(--font-size) * 0.75);
+  margin-bottom: 2em;
+}
+
+#settings h3 {
+  font-weight: 600;
+  font-size: calc(var(--font-size) * 0.9);
+}
+
+.setting {
+  margin-bottom: 1.5em;
+}
+
+.setting label {
+  display: flex;
+  align-items: center;
+}
+
+.setting input {
+  margin-right: 0.5em;
 }
 
 /* Themes */
