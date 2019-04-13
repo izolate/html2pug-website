@@ -15,9 +15,10 @@ const convertToPug = async html => {
     state.output = document.getElementById('output')
   }
 
-  // TODO
   // Send HTML to server for conversion
-  return fetch(API_URL).toJSON()
+  const res = await fetch(API_URL)
+  const text = await res.text()
+  return text
 }
 
 const updateOutput = value => {
