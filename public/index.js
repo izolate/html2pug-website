@@ -3,6 +3,7 @@ import { debounce } from './utils.js'
 const KEY_TAB = 'Tab'
 const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
+const DEBOUNCE_MS = 500
 
 const state = {
   input: null,
@@ -71,7 +72,7 @@ function main() {
   state.input.addEventListener('keydown', e => handleInputKeyDown(e))
   state.input.addEventListener(
     'input',
-    debounce(e => handleInputChange(e), 200)
+    debounce(e => handleInputChange(e), DEBOUNCE_MS)
   )
 }
 
