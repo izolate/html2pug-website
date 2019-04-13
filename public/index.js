@@ -1,6 +1,6 @@
 const KEY_TAB = 'Tab'
 const MIME_TYPE_HTML = 'text/html'
-const API_URL = '/.nelify/functions/html2pug'
+const API_URL = '/.netlify/functions/html2pug'
 
 const state = {
   input: null,
