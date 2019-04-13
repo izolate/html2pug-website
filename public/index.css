@@ -1,9 +1,21 @@
 :root {
-  --font-size: 1rem;
-  --font-family-mono: 'Menlo', 'Inconsolata', monospace;
-  --primary-color: #000;
-  --color-light-grey: #ededed;
   --header-height: 50px;
+  --menu-width: 250px;
+
+  /* Fonts */
+  --font-size: 1rem;
+  --font-family: 'Hind', sans-serif;
+  --font-family-mono: 'IBM Plex Mono', monospace;
+  --font-weight-mono: 500;
+
+  /* Colors */
+  --color-light-grey: #ededed;
+
+  --body-bg-color: white;
+  --input-bg-color: white;
+  --input-font-color: #000;
+  --output-bg-color: white;
+  --output-font-color: #222;
 }
 
 * {
@@ -14,17 +26,30 @@
 }
 
 body {
+  font-family: var(--font-family);
   font-size: var(--font-size);
-  overflow: hidden;
+  background-color: var(--body-bg-color);
+}
+
+main {
+  transition: transform 0.25s ease-out;
+}
+
+main.narrow {
+  /* transform: translateX(calc(var(--menu-width) * -1)); */
+  width: calc(100vw - var(--menu-width));
 }
 
 header {
   height: var(--header-height);
-  padding: 0 2em;
-  background-color: var(--primary-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#logo {
+  margin: 0 1rem;
+  height: calc(var(--header-height) * 0.8);
 }
 
 #io {
@@ -33,14 +58,49 @@ header {
   justify-content: center;
 }
 
+#menu-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: var(--header-height);
+  width: var(--header-height);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+#menu-btn img {
+  height: 20px;
+}
+
 textarea {
   width: 50%;
   height: inherit;
-  padding: 1em;
+  padding: 1em 1.5em;
   border: none;
-  background-color: white;
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-mono);
+  font-size: calc(1rem * 0.65);
 }
 
-textarea.readonly {
-  background-color: var(--color-light-grey);
+#input {
+  background-color: var(--input-bg-color);
+  color: var(--input-font-color);
+}
+
+#output {
+  background-color: var(--output-bg-color);
+  color: var(--output-font-color);
+}
+
+#about {
+  height: 2000px;
+}
+
+/* Themes */
+.black-theme {
+  --body-bg-color: #000;
+  --input-bg-color: #111;
+  --input-font-color: #fff;
+  --output-bg-color: #191919;
+  --output-font-color: #ddd;
 }

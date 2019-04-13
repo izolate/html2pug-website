@@ -6,14 +6,32 @@ html(lang='en')
 
     title html2pug - Free Online Converter
 
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Hind:400,500,600,700|IBM+Plex+Mono:500')
     link(rel='stylesheet', href='index.css')
 
-  body
-    header
-      html2pug
-    section#io
-      textarea#input
-      textarea#output.readonly(readonly)
+  body.black-theme
+    main#page
+      header
+        img#logo(src='/public/html2pug-logo.svg', alt='html2pug logo')
+        nav
+          button#menu-btn(type='button')
+            img(src='/public/menu-icon.svg', alt='menu icon')
+
+      section#io
+        textarea#input(placeholder=`<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1 class="heading">Hello, world!</h1>
+  </body>
+</html>`)
+        textarea#output.readonly(readonly)
+
+      section#about
+        Convert HTML to Pug (formerly Jade) online for free
       
     script.
       !function(h,t,m,l,p,u,g){h.GoogleAnalyticsObject=m;h[m]||(h[m]=function(){

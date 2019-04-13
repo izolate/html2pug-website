@@ -6,20 +6,21 @@ const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 500
 
 const state = {
-  input: null,
-  output: null,
+  el: {
+    main: null,
+    input: null,
+    output: null,
+    menuBtn: null,
+  },
+
   settings: {
     useTabs: false,
     useCommas: true,
-    isFragment: false,
+    isFragment: true,
   },
 }
 
 const convertToPug = async (html = '') => {
-  if (!state.output) {
-    state.output = document.getElementById('output')
-  }
-
   // Send HTML to server for conversion
   const res = await fetch(API_URL, {
     method: HTTP_METHOD_POST,
@@ -30,7 +31,7 @@ const convertToPug = async (html = '') => {
 }
 
 const updateOutput = value => {
-  const { output } = state
+  const { output } = state.el
   if (output) {
     output.value = value
   }
@@ -69,16 +70,38 @@ const handleInputChange = e => {
     })
 }
 
-function main() {
-  if (!state.input) {
-    state.input = document.getElementById('input')
-  }
+const handleMenuBtnClick = e => {
+  const { currentTarget: btn } = e
+  const { main } = state.el
+  console.log(btn)
 
-  state.input.addEventListener('keydown', e => handleInputKeyDown(e))
-  state.input.addEventListener(
+  if (main.classList.contains('narrow')) {
+    main.classList.remove('narrow')
+  } else {
+    main.classList.add('narrow')
+  }
+}
+
+function main() {
+  state.el.main = document.getElementById('page')
+  state.el.input = document.getElementById('input')
+  state.el.output = document.getElementById('output')
+  state.el.menuBtn = document.getElementById('menu-btn')
+
+  const { input, menuBtn } = state.el
+
+  input.addEventListener('keydown', handleInputKeyDown)
+  input.addEventListener(
     'input',
     debounce(e => handleInputChange(e), DEBOUNCE_MS)
   )
+
+  menuBtn.addEventListener('click', handleMenuBtnClick)
+
+  // Clear inputs at launch
+  document.querySelectorAll('textarea').forEach(input => {
+    input.value = ''
+  })
 }
 
 window.addEventListener('load', main)
