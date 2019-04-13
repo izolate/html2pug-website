@@ -1,6 +1,7 @@
 import { debounce } from './utils.js'
 
 const KEY_TAB = 'Tab'
+const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 
 const state = {
@@ -17,7 +18,7 @@ const convertToPug = async (html = '') => {
   }
 
   // Send HTML to server for conversion
-  const res = await fetch(API_URL, { body: html })
+  const res = await fetch(API_URL, { method: HTTP_METHOD_POST, body: html })
   const text = await res.text()
   return text
 }
