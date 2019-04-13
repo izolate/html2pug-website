@@ -4,7 +4,8 @@
   "description": "Convert HTML to Pug",
   "main": "index.js",
   "scripts": {
-    "build": "pug index.pug --out public"
+    "build": "pug index.pug --out public",
+    "lint": "eslint **/*.js --fix"
   },
   "author": "izolate <yoshtalwar@gmail.com> (http://izolate.net/)",
   "license": "MIT",
@@ -13,6 +14,10 @@
     "pug": "^0.1.0"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.17.0",
     "pug-cli": "^1.0.0-alpha6"
   }
 }

@@ -1,7 +1,6 @@
 import { debounce } from './utils'
 
 const KEY_TAB = 'Tab'
-const MIME_TYPE_HTML = 'text/html'
 const API_URL = '/.netlify/functions/html2pug'
 
 const state = {
@@ -9,16 +8,16 @@ const state = {
   output: null,
   settings: {
     tabs: false,
-  }
+  },
 }
 
-const convertToPug = async html => {
+const convertToPug = async (html = '') => {
   if (!state.output) {
     state.output = document.getElementById('output')
   }
 
   // Send HTML to server for conversion
-  const res = await fetch(API_URL)
+  const res = await fetch(API_URL, { body: html })
   const text = await res.text()
   return text
 }
@@ -34,7 +33,7 @@ const indentForward = el => {
   const s = el.selectionStart
   const tab = state.settings.tab ? '\t' : ' '.repeat(2)
 
-  const start = el.value.substring(0, s) 
+  const start = el.value.substring(0, s)
   const end = el.value.substring(el.selectionEnd)
 
   el.value = `${start}${tab}${end}`
