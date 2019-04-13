@@ -6,6 +6,15 @@ html(lang='en')
 
     title html2pug - Free Online Converter
 
+    script(async, src='https://www.googletagmanager.com/gtag/js?id=UA-73798495-2')
+    script.
+      window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-73798495-2');
+
+
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Hind:400,600,700|IBM+Plex+Mono:500')
     link(rel='stylesheet', href='index.css')
 
@@ -55,12 +64,4 @@ html(lang='en')
           p If you have any comments, please tweet #[a(href='https://twitter.com/izolate') @izolate], or open up #[a(href='https://github.com/izolate/html2pug-website/issues') an issue] on Github to submit a bug report. Thank you for your contributions.
     
     // Global site tag (gtag.js) - Google Analytics 
-    script(async, src='https://www.googletagmanager.com/gtag/js?id=UA-73798495-2')
-    script.
-      window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-73798495-2');
-
     script(type="module" src='index.js')
