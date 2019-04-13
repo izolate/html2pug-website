@@ -6,7 +6,7 @@ html(lang='en')
 
     title html2pug - Free Online Converter
 
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Hind:400,500,600,700|IBM+Plex+Mono:500')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Hind:400,600,700|IBM+Plex+Mono:500')
     link(rel='stylesheet', href='index.css')
 
   body.black-theme
@@ -40,7 +40,7 @@ html(lang='en')
         .info-box
           h2 Open source
           p.
-            The source code for this website, along with the code for the html2pug library, are both open source and available on Github. PRs are welcome.
+            The source code for this website, along with the code for the html2pug library, are both open source and available on Github. PRs for both are welcome.
           ul
             li
               img.github(src='/assets/github-logo.svg', alt='Github logo')
@@ -54,11 +54,13 @@ html(lang='en')
           p This website was developed by #[a(href='https://izolate.net') izolate], who also wrote the html2pug npm package it is based on.
           p If you have any comments, please tweet #[a(href='https://twitter.com/izolate') @izolate], or open up #[a(href='https://github.com/izolate/html2pug-website/issues') an issue] on Github to submit a bug report. Thank you for your contributions.
     
+    // Global site tag (gtag.js) - Google Analytics 
+    script(async, src='https://www.googletagmanager.com/gtag/js?id=UA-73798495-2')
     script.
-      !function(h,t,m,l,p,u,g){h.GoogleAnalyticsObject=m;h[m]||(h[m]=function(){
-        (h[m].q=h[m].q||[]).push(arguments)});h[m].l=+new Date;u=t.createElement(l);
-        g=t.getElementsByTagName(l)[0];u.src=p;g.parentNode.insertBefore(u,g)}
-        (window,document,'ga','script','//www.google-analytics.com/analytics.js');
-        ga('create', 'UA-73798495-1', 'auto');
-        ga('send', 'pageview');
+      window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-73798495-2');
+
     script(type="module" src='index.js')

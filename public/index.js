@@ -4,6 +4,7 @@ const KEY_TAB = 'Tab'
 const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 500
+const LOADING_TEXT = 'Loading...'
 
 const state = {
   el: {
@@ -30,7 +31,7 @@ const convertToPug = async (html = '') => {
   return text
 }
 
-const updateOutput = value => {
+const setOutputValue = value => {
   const { output } = state.el
   if (output) {
     output.value = value
@@ -62,8 +63,9 @@ const handleInputKeyDown = e => {
 
 const handleInputChange = e => {
   const { target: input } = e
+  setOutputValue(LOADING_TEXT)
   return convertToPug(input.value)
-    .then(pug => updateOutput(pug))
+    .then(pug => setOutputValue(pug))
     .catch(err => {
       // TODO
       console.error(err)

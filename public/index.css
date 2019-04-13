@@ -7,10 +7,10 @@
   --font-family: 'Hind', sans-serif;
   --font-family-mono: 'IBM Plex Mono', monospace;
   --font-weight-mono: 500;
+  --font-weight-link: 600;
+  --font-weight-bold: 700;
 
   /* Colors */
-  --color-light-grey: #ededed;
-
   --font-color: black;
   --link-color: black;
   --bg-color: white;
@@ -35,13 +35,13 @@ body {
 }
 
 h1 {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   font-size: calc(var(--font-size) * 2.5);
 }
 
 a {
   color: var(--link-color);
-  font-weight: 600;
+  font-weight: var(--font-weight-link);
 }
 
 main {
