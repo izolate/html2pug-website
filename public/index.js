@@ -1,3 +1,5 @@
+import { debounce } from './utils'
+
 const KEY_TAB = 'Tab'
 const MIME_TYPE_HTML = 'text/html'
 const API_URL = '/.netlify/functions/html2pug'
@@ -67,7 +69,10 @@ function main() {
   }
 
   state.input.addEventListener('keydown', e => handleInputKeyDown(e))
-  state.input.addEventListener('input', e => handleInputChange(e))
+  state.input.addEventListener(
+    'input',
+    debounce(e => handleInputChange(e), 200)
+  )
 }
 
 window.addEventListener('load', main)
