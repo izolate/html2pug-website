@@ -1,0 +1,46 @@
+:root {
+  --font-size: 1rem;
+  --font-family-mono: 'Menlo', 'Inconsolata', monospace;
+  --primary-color: #000;
+  --color-light-grey: #ededed;
+  --header-height: 50px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-size: var(--font-size);
+  overflow: hidden;
+}
+
+header {
+  height: var(--header-height);
+  padding: 0 2em;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#io {
+  height: calc(100vh - var(--header-height));
+  display: flex;
+  justify-content: center;
+}
+
+textarea {
+  width: 50%;
+  height: inherit;
+  padding: 1em;
+  border: none;
+  background-color: white;
+}
+
+textarea.disabled {
+  background-color: var(--color-light-grey);
+}

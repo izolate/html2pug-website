@@ -1,9 +1,0 @@
-{
-  "name": "html2pug",
-  "env": {
-  "NODE_PORT": 30600,
-  "NODE_ENV": "production"
-},
-  "script": "app/server.js",
-  "node_args": "--use-strict --harmony_destructuring"
-}
