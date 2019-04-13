@@ -31,7 +31,7 @@ node_modules
 .env
 
 # Distribution files
-app/client/dist
+public/index.html
 
 # Optional npm cache directory
 .npm
@@ -39,5 +39,5 @@ app/client/dist
 # Optional REPL history
 .node_repl_history
 
-# OS X
+# macOS
 .DS_Store
