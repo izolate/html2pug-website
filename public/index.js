@@ -6,7 +6,9 @@ const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 750
 const LOADING_TEXT = 'Loading...'
-const IS_FRAGMENT_SETTING = 'isFragment'
+const USE_TABS_SETTING = 'useTabs'
+const USE_COMMAS_SETTING = 'useCommas'
+const THEME_SETTING = 'theme'
 const MIME_TYPE_HTML = 'text/html'
 const ERROR_TEXT = `Oh no! Something went wrong :(
 
@@ -23,6 +25,7 @@ const state = {
   },
 
   settings: {
+    theme: 'black',
     useTabs: false,
     useCommas: true,
     isFragment: true,
@@ -89,10 +92,17 @@ const updateSettingsField = async (name, value) => {
     settings[name] = value
     window.localStorage.setItem('settings', JSON.stringify(settings))
 
-    // Trigger re-complile
-    const { input } = el
-    if (input.value.length) {
-      await convertToPug(input.value)
+    switch(name) {
+      case USE_TABS_SETTING:
+      case USE_COMMAS_SETTING: {
+        // Trigger re-complile
+        const { input } = el
+        if (input.value.length) {
+          await convertToPug(input.value)
+        }
+      }
+      case THEME_SETTING:
+        setTheme(value)
     }
   }
 }
@@ -106,14 +116,24 @@ const updateSettings = (settings = {}) => {
 
   Object.entries(state.settings).forEach(([key, val]) => {
     switch (key) {
-      case IS_FRAGMENT_SETTING:
+      case THEME_SETTING:
+        settingsForm[key].value = val
+        setTheme(val)
         return
-      default: {
+      case USE_TABS_SETTING:
+      case USE_COMMAS_SETTING:
         settingsForm[key].value = boolToNumber(val)
         return
-      }
+      default:
+        return
     }
   })
+}
+
+const setTheme = theme => {
+  const { body } = document
+  body.classList.forEach(cls => body.classList.remove(cls))
+  body.classList.add(`${theme}-theme`)
 }
 
 const handleInputKeyDown = e => {
@@ -131,10 +151,6 @@ const handleInputKeyDown = e => {
 const handleInputChange = e => {
   const { target: input } = e
 
-  const parser = new window.DOMParser()
-  const html = parser.parseFromString(input.value, MIME_TYPE_HTML)
-  console.log(html)
-
   // Do nothing if input is empty
   if (!input.value) {
     return setOutputValue(input.value)
@@ -145,8 +161,12 @@ const handleInputChange = e => {
 
 const handleSettingsChange = e => {
   const { name, value } = e.target
-  // Convert "1"/"0" to true/false
-  return updateSettingsField(name, Boolean(parseInt(value, 10)))
+
+  // Convert "1"/"0" to true/false for boolean settings
+  const isBool = name === USE_TABS_SETTING || name === USE_COMMAS_SETTING
+  const val = isBool ? Boolean(parseInt(value, 10)) : value
+
+  return updateSettingsField(name, val)
 }
 
 const handleMenuBtnClick = (showMenu = true) => {

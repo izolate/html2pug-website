@@ -14,7 +14,9 @@
   /* Colors */
   --font-color: black;
   --link-color: black;
+  --heading-color: black;
   --bg-color: white;
+  --menu-bg-color: inherit;
   --input-bg-color: white;
   --input-font-color: black;
   --output-bg-color: white;
@@ -40,6 +42,12 @@ h1 {
   font-size: calc(var(--font-size) * 2.5);
 }
 
+h1,
+h2,
+h3 {
+  color: var(--heading-color);
+}
+
 a {
   color: var(--link-color);
   font-weight: var(--font-weight-link);
@@ -62,7 +70,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--bg-color);
+  background-color: var(--menu-bg-color);
 }
 
 #logo {
@@ -165,16 +173,17 @@ textarea {
 
 #settings h3 {
   font-weight: 600;
-  font-size: calc(var(--font-size) * 0.9);
+  font-size: var(--font-size);
 }
 
 .setting {
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
 }
 
 .setting label {
   display: flex;
   align-items: center;
+  font-size: calc(var(--font-size) * 0.9);
 }
 
 .setting input {
@@ -190,9 +199,26 @@ textarea {
 .black-theme {
   --font-color: white;
   --link-color: yellow;
+  --heading-color: white;
   --bg-color: #000;
+  --menu-bg-color: var(--bg-color);
   --input-bg-color: #111;
   --input-font-color: #fff;
   --output-bg-color: #191919;
   --output-font-color: #ddd;
+}
+
+.light-theme {
+  --font-color: #555555;
+  --link-color: #3a91d0;
+  --heading-color: #444444;
+  --bg-color: #f4f4f4;
+  --menu-bg-color: #333333;
+  --input-bg-color: #fff;
+  --input-font-color: #000;
+  --output-bg-color: #fff;
+  --output-font-color: #000;
+}
+.light-theme #output {
+  border-left: 2px solid #ddd;
 }
