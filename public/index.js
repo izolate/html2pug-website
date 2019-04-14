@@ -4,9 +4,10 @@ const KEY_TAB = 'Tab'
 const KEY_ESC = 'Escape'
 const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
-const DEBOUNCE_MS = 500
+const DEBOUNCE_MS = 750
 const LOADING_TEXT = 'Loading...'
 const IS_FRAGMENT_SETTING = 'isFragment'
+const MIME_TYPE_HTML = 'text/html'
 const ERROR_TEXT = `Oh no! Something went wrong :(
 
 It could be a server fault, or it could be invalid HTML.
@@ -130,21 +131,16 @@ const handleInputKeyDown = e => {
 const handleInputChange = e => {
   const { target: input } = e
 
+  const parser = new window.DOMParser()
+  const html = parser.parseFromString(input.value, MIME_TYPE_HTML)
+  console.log(html)
+
   // Do nothing if input is empty
   if (!input.value) {
     return setOutputValue(input.value)
   }
 
   return convertToPug(input.value)
-  /*
-  return convertToPug(input.value)
-    .then(pug => setOutputValue(pug))
-    .catch(err => {
-      setOutputValue(ERROR_TEXT)
-      // eslint-disable-next-line no-console
-      console.error(err)
-    })
-    */
 }
 
 const handleSettingsChange = e => {
