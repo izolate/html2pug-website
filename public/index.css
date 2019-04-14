@@ -48,12 +48,13 @@ a {
 main {
   position: relative;
   z-index: 1;
-  transition: transform 0.25s ease-out;
+  transition: width 0.25s ease-out;
+  width: 100%;
 }
 
-main.narrow {
-  /* transform: translateX(calc(var(--menu-width) * -1)); */
-  width: calc(100vw - var(--menu-width));
+main.show-menu {
+  /* Shrink left */
+  width: calc(100vw - var(--menu-width));/
 }
 
 header {
@@ -83,10 +84,14 @@ header {
   background: transparent;
   border: none;
   outline: none;
+  cursor: pointer;
+}
+#menu-btn:hover {
+  background-color: #ffffff19;
 }
 
 #menu-btn img {
-  height: 20px;
+  height: 15px;
 }
 
 textarea {

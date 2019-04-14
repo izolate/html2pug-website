@@ -1,6 +1,7 @@
 import { debounce } from './utils.js'
 
 const KEY_TAB = 'Tab'
+const KEY_ESC = 'Escape'
 const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 500
@@ -125,13 +126,20 @@ const handleSettingsChange = e => {
   return updateSettingsField(name, Boolean(parseInt(value, 10)))
 }
 
-const handleMenuBtnClick = () => {
+const handleMenuBtnClick = (showMenu = true) => {
   const { main } = state.el
 
-  if (main.classList.contains('narrow')) {
-    main.classList.remove('narrow')
-  } else {
-    main.classList.add('narrow')
+  if (main.classList.contains('show-menu')) {
+    main.classList.remove('show-menu')
+  } else if (showMenu) {
+    main.classList.add('show-menu')
+  }
+}
+
+const handleDocumentKeyUp = e => {
+  const { key } = e
+  if (key === KEY_ESC) {
+    handleMenuBtnClick(false)
   }
 }
 
@@ -165,6 +173,13 @@ function main() {
   document
     .getElementById('settings')
     .addEventListener('input', handleSettingsChange)
+
+  // Close menu when clicking about link
+  document
+    .getElementById('about-link')
+    .addEventListener('click', handleMenuBtnClick)
+
+  document.addEventListener('keyup', handleDocumentKeyUp)
 }
 
 window.addEventListener('load', main)
