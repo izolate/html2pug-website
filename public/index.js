@@ -28,7 +28,8 @@ const state = {
   },
 }
 
-const convertToPug = async (html = '') => {
+// Send request to API
+const sendApiRequest = async html => {
   // Send HTML to server for conversion
   const res = await fetch(API_URL, {
     method: HTTP_METHOD_POST,
@@ -41,6 +42,24 @@ const convertToPug = async (html = '') => {
 
   const text = await res.text()
   return text
+}
+
+const convertToPug = async (html = '') => {
+  // Clear input if value is blank
+  if (!html.length) {
+    setOutputValue(html)
+  }
+
+  setOutputValue(LOADING_TEXT)
+
+  try {
+    const pug = await sendApiRequest(html)
+    setOutputValue(pug)
+  } catch (err) {
+    setOutputValue(ERROR_TEXT)
+    // eslint-disable-next-line no-console
+    console.error(err)
+  }
 }
 
 const setOutputValue = value => {
@@ -62,11 +81,18 @@ const indentForward = el => {
 }
 
 // Save a single settings change to state.
-const updateSettingsField = (name, value) => {
-  const { settings } = state
+const updateSettingsField = async (name, value) => {
+  const { settings, el } = state
+
   if (Object.keys(settings).includes(name)) {
     settings[name] = value
     window.localStorage.setItem('settings', JSON.stringify(settings))
+
+    // Trigger re-complile
+    const { input } = el
+    if (input.value.length) {
+      await convertToPug(input.value)
+    }
   }
 }
 
@@ -109,8 +135,8 @@ const handleInputChange = e => {
     return setOutputValue(input.value)
   }
 
-  setOutputValue(LOADING_TEXT)
-
+  return convertToPug(input.value)
+  /*
   return convertToPug(input.value)
     .then(pug => setOutputValue(pug))
     .catch(err => {
@@ -118,6 +144,7 @@ const handleInputChange = e => {
       // eslint-disable-next-line no-console
       console.error(err)
     })
+    */
 }
 
 const handleSettingsChange = e => {
