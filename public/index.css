@@ -222,3 +222,8 @@ textarea {
 .light-theme #output {
   border-left: 2px solid #ddd;
 }
+.light-theme .github {
+  background-color: var(--font-color);
+  padding: 2px;
+  border-radius: 2px;
+}
