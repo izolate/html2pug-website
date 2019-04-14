@@ -103,6 +103,11 @@ const handleInputKeyDown = e => {
 const handleInputChange = e => {
   const { target: input } = e
 
+  // Do nothing if input is empty
+  if (!input.value) {
+    return setOutputValue(input.value)
+  }
+
   setOutputValue(LOADING_TEXT)
 
   return convertToPug(input.value)

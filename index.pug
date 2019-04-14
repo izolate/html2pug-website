@@ -66,7 +66,7 @@ html(lang='en')
     form#settings
       h2 Settings
       .setting
-        h3 Tabs or Spaces?
+        h3 Tabs or Spaces
         label
           input(type='radio', name='useTabs', value='1')
           | Tabs
@@ -82,6 +82,8 @@ html(lang='en')
         label
           input(type='radio', name='useCommas', value='0')
           | No
+      a#about-link(href='#about')
+        small About this page ↓
 
     // Global site tag (gtag.js) - Google Analytics 
     script(type="module" src='index.js')
