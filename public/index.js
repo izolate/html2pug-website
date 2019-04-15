@@ -1,4 +1,4 @@
-import { debounce } from './utils.js'
+import { debounce, isSafari } from './utils.js'
 
 const KEY_TAB = 'Tab'
 const KEY_ESC = 'Escape'
@@ -92,7 +92,7 @@ const updateSettingsField = async (name, value) => {
     settings[name] = value
     window.localStorage.setItem('settings', JSON.stringify(settings))
 
-    switch(name) {
+    switch (name) {
       case USE_TABS_SETTING:
       case USE_COMMAS_SETTING: {
         // Trigger re-complile
@@ -227,6 +227,11 @@ function main() {
     .addEventListener('click', handleMenuBtnClick)
 
   document.addEventListener('keyup', handleDocumentKeyUp)
+
+  // Safari placeholder doesn't support line breaks
+  if (isSafari) {
+    input.placeholder = '<h1 class="heading">Hello, world!</h1>'
+  }
 }
 
 window.addEventListener('load', main)
