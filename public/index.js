@@ -100,9 +100,11 @@ const updateSettingsField = async (name, value) => {
         if (input.value.length) {
           await convertToPug(input.value)
         }
+        return
       }
       case THEME_SETTING:
         setTheme(value)
+        return
     }
   }
 }
