@@ -146,6 +146,20 @@ const setTheme = theme => {
   body.classList.add(`${theme}-theme`)
 }
 
+const toggleMenu = (open = true) => {
+  const { main } = state.el
+
+  if (open) {
+    main.classList.toggle('show-menu')
+    return
+  }
+
+  // Toggle it closed but don't toggle it open
+  if (main.classList.contains('show-menu')) {
+    main.classList.remove('show-menu')
+  }
+}
+
 const handleInputKeyDown = e => {
   const { key, shiftKey, target: input } = e
   if (key === KEY_TAB) {
@@ -179,20 +193,12 @@ const handleSettingsChange = e => {
   return updateSettingsField(name, val)
 }
 
-const handleMenuBtnClick = (showMenu = true) => {
-  const { main } = state.el
-
-  if (main.classList.contains('show-menu')) {
-    main.classList.remove('show-menu')
-  } else if (showMenu) {
-    main.classList.add('show-menu')
-  }
-}
+const handleMenuBtnClick = () => toggleMenu()
 
 const handleDocumentKeyUp = e => {
   const { key } = e
   if (key === KEY_ESC) {
-    handleMenuBtnClick(false)
+    toggleMenu(false)
   }
 }
 
