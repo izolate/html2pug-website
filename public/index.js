@@ -9,7 +9,6 @@ const LOADING_TEXT = 'Loading...'
 const USE_TABS_SETTING = 'useTabs'
 const USE_COMMAS_SETTING = 'useCommas'
 const THEME_SETTING = 'theme'
-const MIME_TYPE_HTML = 'text/html'
 const ERROR_TEXT = `Oh no! Something went wrong :(
 
 It could be a server fault, or it could be invalid HTML.
