@@ -84,7 +84,7 @@ header {
   justify-content: center;
 }
 
-#menu-btn {
+nav button {
   -webkit-appearance: none;
   -moz-appearance: none;
   height: var(--header-height);
@@ -94,11 +94,12 @@ header {
   outline: none;
   cursor: pointer;
 }
-#menu-btn:hover {
+
+nav button:hover {
   background-color: #ffffff19;
 }
 
-#menu-btn img {
+nav button img {
   height: 15px;
 }
 
@@ -193,6 +194,10 @@ textarea {
 #about-link {
   position: absolute;
   bottom: 1em;
+}
+
+#upload {
+  display: none;
 }
 
 /* Themes */

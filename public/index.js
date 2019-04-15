@@ -8,11 +8,13 @@ const DEBOUNCE_MS = 750
 const USE_TABS_SETTING = 'useTabs'
 const USE_COMMAS_SETTING = 'useCommas'
 const THEME_SETTING = 'theme'
+const MIME_TYPE_HTML = 'text/html'
 const LOADING_TEXT = 'Loading...'
 const ERROR_TEXT = `Oh no! Something went wrong :(
 
 It could be a server fault, or it could be invalid HTML.
 Please check your input and try again.`
+const INCORRECT_FILE_TYPE_TEXT = 'Please select a valid HTML document to upload'
 
 const state = {
   el: {
@@ -21,6 +23,7 @@ const state = {
     output: null,
     menuBtn: null,
     settingsForm: null,
+    uploadForm: null,
   },
 
   settings: {
@@ -195,6 +198,33 @@ const handleSettingsChange = e => {
 
 const handleMenuBtnClick = () => toggleMenu()
 
+const handleUploadBtnClick = () => {
+  const { uploadForm } = state.el
+  const [input] = uploadForm.childNodes
+  input.click()
+}
+
+const handleUploadFormChange = e => {
+  const { target: input, currentTarget: form } = e
+  const [file] = input.files
+
+  if (file.type !== MIME_TYPE_HTML) {
+    window.alert(INCORRECT_FILE_TYPE_TEXT)
+    form.reset()
+    return
+  }
+
+  const reader = new window.FileReader()
+  reader.onload = async e => {
+    const { result } = e.target
+    state.el.input.value = result
+    await convertToPug(result)
+  }
+  reader.readAsText(input.files[0])
+
+  form.reset()
+}
+
 const handleDocumentKeyUp = e => {
   const { key } = e
   if (key === KEY_ESC) {
@@ -208,8 +238,9 @@ function main() {
   state.el.output = document.getElementById('output')
   state.el.menuBtn = document.getElementById('menu-btn')
   state.el.settingsForm = document.getElementById('settings')
+  state.el.uploadForm = document.getElementById('upload')
 
-  const { input, menuBtn } = state.el
+  const { input, menuBtn, uploadForm } = state.el
 
   input.addEventListener('keydown', handleInputKeyDown)
   input.addEventListener(
@@ -218,6 +249,13 @@ function main() {
   )
 
   menuBtn.addEventListener('click', handleMenuBtnClick)
+
+  // Upload document
+  document
+    .getElementById('upload-btn')
+    .addEventListener('click', handleUploadBtnClick)
+
+  uploadForm.addEventListener('change', handleUploadFormChange)
 
   // Clear inputs at launch
   document.querySelectorAll('textarea').forEach(input => {
