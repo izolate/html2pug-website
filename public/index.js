@@ -5,10 +5,10 @@ const KEY_ESC = 'Escape'
 const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 750
-const LOADING_TEXT = 'Loading...'
 const USE_TABS_SETTING = 'useTabs'
 const USE_COMMAS_SETTING = 'useCommas'
 const THEME_SETTING = 'theme'
+const LOADING_TEXT = 'Loading...'
 const ERROR_TEXT = `Oh no! Something went wrong :(
 
 It could be a server fault, or it could be invalid HTML.
@@ -33,14 +33,16 @@ const state = {
 
 // Send request to API
 const sendApiRequest = async html => {
-  // Send HTML to server for conversion
   const res = await fetch(API_URL, {
     method: HTTP_METHOD_POST,
     body: JSON.stringify({ html, settings: state.settings }),
   })
 
-  if (res.status !== 200) {
-    throw new Error(ERROR_TEXT)
+  const isSuccess = res.status >= 200 && res.status < 300
+  if (!isSuccess) {
+    // eslint-disable-next-line no-console
+    console.error(res.statusText)
+    throw new Error(res.statusText)
   }
 
   const text = await res.text()
@@ -51,6 +53,7 @@ const convertToPug = async (html = '') => {
   // Clear input if value is blank
   if (!html.length) {
     setOutputValue(html)
+    return
   }
 
   setOutputValue(LOADING_TEXT)
@@ -60,8 +63,6 @@ const convertToPug = async (html = '') => {
     setOutputValue(pug)
   } catch (err) {
     setOutputValue(ERROR_TEXT)
-    // eslint-disable-next-line no-console
-    console.error(err)
   }
 }
 
@@ -104,6 +105,8 @@ const updateSettingsField = async (name, value) => {
       case THEME_SETTING:
         setTheme(value)
         return
+      default:
+        return
     }
   }
 }
@@ -135,7 +138,11 @@ const updateSettings = (settings = {}) => {
 
 const setTheme = theme => {
   const { body } = document
-  body.classList.forEach(cls => body.classList.remove(cls))
+  body.classList.forEach(cls => {
+    if (cls.endsWith('-theme')) {
+      body.classList.remove(cls)
+    }
+  })
   body.classList.add(`${theme}-theme`)
 }
 
