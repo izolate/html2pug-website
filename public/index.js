@@ -114,6 +114,8 @@ const updateSettings = (settings = {}) => {
   const { settingsForm } = state.el
   const boolToNumber = bool => (bool ? 1 : 0)
 
+  window.localStorage.setItem('settings', JSON.stringify(state.settings))
+
   Object.entries(state.settings).forEach(([key, val]) => {
     switch (key) {
       case THEME_SETTING:
