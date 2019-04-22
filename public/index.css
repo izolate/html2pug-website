@@ -60,7 +60,7 @@ main {
   width: 100%;
 }
 
-main.show-menu {
+.show-menu main {
   /* Shrink left */
   width: calc(100vw - var(--menu-width));/
 }
@@ -153,6 +153,7 @@ textarea {
 
 /* Settings */
 #settings {
+  opacity: 0;
   position: absolute;
   right: 0;
   top: 0;
@@ -160,6 +161,11 @@ textarea {
   width: var(--menu-width);
   padding: 0 3em;
   height: 100vh;
+  transition: opacity .5s linear;
+  transition-delay: .15s;
+}
+.show-menu #settings {
+  opacity: 1;
 }
 
 #settings h2 {

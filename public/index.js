@@ -7,6 +7,7 @@ const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 750
 const USE_TABS_SETTING = 'useTabs'
 const USE_COMMAS_SETTING = 'useCommas'
+const IS_FRAGMENT_SETTING = 'isFragment'
 const THEME_SETTING = 'theme'
 const MIME_TYPE_HTML = 'text/html'
 const LOADING_TEXT = 'Loading...'
@@ -92,25 +93,28 @@ const updateSettingsField = async (name, value) => {
   const { settings, el } = state
 
   if (Object.keys(settings).includes(name)) {
-    settings[name] = value
-    window.localStorage.setItem('settings', JSON.stringify(settings))
-
     switch (name) {
       case USE_TABS_SETTING:
-      case USE_COMMAS_SETTING: {
+      case USE_COMMAS_SETTING:
+      case IS_FRAGMENT_SETTING: {
+        settings[name] = Boolean(parseInt(value, 10))
+
         // Trigger re-complile
         const { input } = el
         if (input.value.length) {
           await convertToPug(input.value)
         }
-        return
+        break
       }
       case THEME_SETTING:
         setTheme(value)
-        return
+        settings[name] = value
+        break
       default:
-        return
+        break
     }
+
+    window.localStorage.setItem('settings', JSON.stringify(settings))
   }
 }
 
@@ -119,8 +123,8 @@ const updateSettings = (settings = {}) => {
   state.settings = { ...state.settings, ...settings }
 
   const { settingsForm } = state.el
-  const boolToNumber = bool => (bool ? 1 : 0)
 
+  const boolToNumber = bool => (bool ? 1 : 0)
   window.localStorage.setItem('settings', JSON.stringify(state.settings))
 
   Object.entries(state.settings).forEach(([key, val]) => {
@@ -131,6 +135,7 @@ const updateSettings = (settings = {}) => {
         return
       case USE_TABS_SETTING:
       case USE_COMMAS_SETTING:
+      case IS_FRAGMENT_SETTING:
         settingsForm[key].value = boolToNumber(val)
         return
       default:
@@ -150,16 +155,16 @@ const setTheme = theme => {
 }
 
 const toggleMenu = (open = true) => {
-  const { main } = state.el
+  const { body } = document
 
   if (open) {
-    main.classList.toggle('show-menu')
+    body.classList.toggle('show-menu')
     return
   }
 
   // Toggle it closed but don't toggle it open
-  if (main.classList.contains('show-menu')) {
-    main.classList.remove('show-menu')
+  if (body.classList.contains('show-menu')) {
+    body.classList.remove('show-menu')
   }
 }
 
@@ -201,7 +206,9 @@ const handleMenuBtnClick = () => toggleMenu()
 const handleUploadBtnClick = () => {
   const { uploadForm } = state.el
   const [input] = uploadForm.childNodes
-  input.click()
+  if (input) {
+    input.click()
+  }
 }
 
 const handleUploadFormChange = e => {
@@ -220,7 +227,7 @@ const handleUploadFormChange = e => {
     state.el.input.value = result
     await convertToPug(result)
   }
-  reader.readAsText(input.files[0])
+  reader.readAsText(file)
 
   form.reset()
 }
@@ -264,7 +271,11 @@ function main() {
 
   // Get saved preferences from localStorage
   const prefs = JSON.parse(window.localStorage.getItem('settings')) || {}
-  updateSettings({ ...state.settings, ...prefs })
+  if (typeof prefs === 'object') {
+    updateSettings({ ...state.settings, ...prefs })
+  } else {
+    window.localStorage.setItem('settings', JSON.stringify(state.settings))
+  }
 
   // Listen for changes in settings
   document
