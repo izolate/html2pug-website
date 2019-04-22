@@ -93,28 +93,26 @@ const updateSettingsField = async (name, value) => {
   const { settings, el } = state
 
   if (Object.keys(settings).includes(name)) {
+    settings[name] = value
+    window.localStorage.setItem('settings', JSON.stringify(settings))
+
     switch (name) {
       case USE_TABS_SETTING:
       case USE_COMMAS_SETTING:
       case IS_FRAGMENT_SETTING: {
-        settings[name] = Boolean(parseInt(value, 10))
-
         // Trigger re-complile
         const { input } = el
         if (input.value.length) {
           await convertToPug(input.value)
         }
-        break
+        return
       }
       case THEME_SETTING:
         setTheme(value)
-        settings[name] = value
-        break
+        return
       default:
-        break
+        return
     }
-
-    window.localStorage.setItem('settings', JSON.stringify(settings))
   }
 }
 
@@ -194,9 +192,17 @@ const handleInputChange = e => {
 const handleSettingsChange = e => {
   const { name, value } = e.target
 
-  // Convert "1"/"0" to true/false for boolean settings
-  const isBool = name === USE_TABS_SETTING || name === USE_COMMAS_SETTING
-  const val = isBool ? Boolean(parseInt(value, 10)) : value
+  let val = value
+
+  switch (name) {
+    case USE_TABS_SETTING:
+    case USE_COMMAS_SETTING:
+    case IS_FRAGMENT_SETTING:
+      // Convert "1"/"0" to true/false for boolean settings
+      val = Boolean(parseInt(value, 10))
+    default:
+      break
+  }
 
   return updateSettingsField(name, val)
 }
@@ -270,10 +276,13 @@ function main() {
   })
 
   // Get saved preferences from localStorage
-  const prefs = JSON.parse(window.localStorage.getItem('settings')) || {}
-  if (typeof prefs === 'object') {
+  try {
+    const prefs = JSON.parse(window.localStorage.getItem('settings'))
+    if (typeof prefs !== 'object') {
+      throw new Error('Expected object')
+    }
     updateSettings({ ...state.settings, ...prefs })
-  } else {
+  } catch (err) {
     window.localStorage.setItem('settings', JSON.stringify(state.settings))
   }
 
