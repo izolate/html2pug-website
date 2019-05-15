@@ -10,7 +10,7 @@
   "author": "izolate <yoshtalwar@gmail.com> (http://izolate.net/)",
   "license": "MIT",
   "dependencies": {
-    "html2pug": "^3.0.0",
+    "html2pug": "^4.0.0",
     "pug": "^2.0.3"
   },
   "devDependencies": {

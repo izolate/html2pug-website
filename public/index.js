@@ -5,9 +5,10 @@ const KEY_ESC = 'Escape'
 const HTTP_METHOD_POST = 'post'
 const API_URL = '/.netlify/functions/html2pug'
 const DEBOUNCE_MS = 750
-const USE_TABS_SETTING = 'useTabs'
-const USE_COMMAS_SETTING = 'useCommas'
-const IS_FRAGMENT_SETTING = 'isFragment'
+const TABS_SETTING = 'tabs'
+const COMMAS_SETTING = 'commas'
+const DOUBLE_QUOTES_SETTING = 'doubleQuotes'
+const FRAGMENT_SETTING = 'fragment'
 const THEME_SETTING = 'theme'
 const MIME_TYPE_HTML = 'text/html'
 const LOADING_TEXT = 'Loading...'
@@ -28,10 +29,11 @@ const state = {
   },
 
   settings: {
-    theme: 'black',
-    useTabs: false,
-    useCommas: true,
-    isFragment: true,
+    [THEME_SETTING]: 'black',
+    [TABS_SETTING]: false,
+    [COMMAS_SETTING]: true,
+    [DOUBLE_QUOTES_SETTING]: false,
+    [FRAGMENT_SETTING]: true,
   },
 }
 
@@ -97,9 +99,10 @@ const updateSettingsField = async (name, value) => {
     window.localStorage.setItem('settings', JSON.stringify(settings))
 
     switch (name) {
-      case USE_TABS_SETTING:
-      case USE_COMMAS_SETTING:
-      case IS_FRAGMENT_SETTING: {
+      case TABS_SETTING:
+      case COMMAS_SETTING:
+      case DOUBLE_QUOTES_SETTING:
+      case FRAGMENT_SETTING: {
         // Trigger re-complile
         const { input } = el
         if (input.value.length) {
@@ -131,9 +134,9 @@ const updateSettings = (settings = {}) => {
         settingsForm[key].value = val
         setTheme(val)
         return
-      case USE_TABS_SETTING:
-      case USE_COMMAS_SETTING:
-      case IS_FRAGMENT_SETTING:
+      case TABS_SETTING:
+      case COMMAS_SETTING:
+      case FRAGMENT_SETTING:
         settingsForm[key].value = boolToNumber(val)
         return
       default:
@@ -195,9 +198,10 @@ const handleSettingsChange = e => {
   let val = value
 
   switch (name) {
-    case USE_TABS_SETTING:
-    case USE_COMMAS_SETTING:
-    case IS_FRAGMENT_SETTING:
+    case TABS_SETTING:
+    case COMMAS_SETTING:
+    case DOUBLE_QUOTES_SETTING:
+    case FRAGMENT_SETTING:
       // Convert "1"/"0" to true/false for boolean settings
       val = Boolean(parseInt(value, 10))
     default:

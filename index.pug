@@ -70,28 +70,37 @@ html(lang='en')
       .setting
         h3 Tabs or Spaces
         label
-          input(type='radio', name='useTabs', value='1')
+          input(type='radio', name='tabs', value='1')
           | Tabs
         label
-          input(type='radio', name='useTabs', value='0')
+          input(type='radio', name='tabs', value='0')
           | Spaces
 
       .setting
         h3 Commas in attributes
         label
-          input(type='radio', name='useCommas', value='1')
+          input(type='radio', name='commas', value='1')
           | Yes
         label
-          input(type='radio', name='useCommas', value='0')
+          input(type='radio', name='commas', value='0')
           | No
+
+      .setting
+        h3 Quote style
+        label
+          input(type='radio', name='doubleQuotes', value='0')
+          | Single
+        label
+          input(type='radio', name='doubleQuotes', value='1')
+          | Double
 
       .setting
         h3 Is HTML Fragment
         label
-          input(type='radio', name='isFragment', value='1')
+          input(type='radio', name='fragment', value='1')
           | Yes
         label
-          input(type='radio', name='isFragment', value='0')
+          input(type='radio', name='fragment', value='0')
           | No
 
       .setting
