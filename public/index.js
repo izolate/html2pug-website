@@ -136,6 +136,7 @@ const updateSettings = (settings = {}) => {
         return
       case TABS_SETTING:
       case COMMAS_SETTING:
+      case DOUBLE_QUOTES_SETTING:
       case FRAGMENT_SETTING:
         settingsForm[key].value = boolToNumber(val)
         return
