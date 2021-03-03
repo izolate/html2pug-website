@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "html2pug": "^4.0.0",
-    "pug": "^2.0.3"
+    "pug": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
